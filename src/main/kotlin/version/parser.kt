@@ -14,6 +14,14 @@ fun parseClass(doc: Document) = Class(
     signals = doc.select("signal").map { parseSignal(it) }
 )
 
+fun parseClassDocumentation(doc: Document) = ClassDocumentation(
+    description = doc.selectFirst("class > description")?.wholeText()?.trim().orEmpty(),
+    fields = doc.select("member").associate { it.attr("name") to it.wholeText().trim() },
+    methods = doc.select("method").associate {
+        it.attr("name") to it.selectFirst("description")?.wholeText()?.trim().orEmpty()
+    }
+)
+
 private fun parseField(field: Element) = Field(
     name = field.attr("name"),
     type = field.attr("type"),

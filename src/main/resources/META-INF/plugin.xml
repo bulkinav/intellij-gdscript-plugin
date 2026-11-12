@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/bulkinav/intellij-gdscript-plugin">
 	<id>org.plugin.pixelstream.gdscript</id>
 	<name>Godot GDScript</name>
-	<version>0.36.0</version>
+	<version>0.36.1</version>
 	<vendor url="https://github.com/bulkinav/intellij-gdscript-plugin">Alexander Bulkin</vendor>
 	<description><![CDATA[
 		<p>Adds GDScript language support and Godot Engine integration to IntelliJ-based IDEs.</p>
@@ -17,6 +17,14 @@
 		</ul>
 	]]>
 	</description>
+	<change-notes><![CDATA[
+		<h3>0.36.1</h3>
+		<ul>
+			<li>Support return statements in GDScript lambdas.</li>
+			<li>Complete static API method suggestions.</li>
+			<li>Render Godot API documentation in quick docs.</li>
+		</ul>
+	]]></change-notes>
 	<idea-version since-build="262"/>
 	<depends>com.intellij.modules.lang</depends>
 	<extensions defaultExtensionNs="com.intellij">

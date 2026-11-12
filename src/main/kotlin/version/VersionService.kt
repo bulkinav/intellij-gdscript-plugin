@@ -5,28 +5,32 @@ import com.intellij.openapi.components.service
 import org.jsoup.Jsoup
 import settings.ApplicationSettings
 import version.data.Class
+import version.data.ClassDocumentation
 import version.data.Version
 import java.io.ByteArrayInputStream
+import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipInputStream
 
 @Service
 class VersionService {
 
-    private val versions: List<Version> = listOf(
-        loadVersion("3.2", "version/3.2.zip"),
-        loadVersion("3.3", "version/3.3.zip"),
-        loadVersion("3.4", "version/3.4.zip"),
-        loadVersion("3.5", "version/3.5.zip"),
-        loadVersion("4.0", "version/4.0.zip"),
-        loadVersion("4.1", "version/4.1.zip"),
-        loadVersion("4.2", "version/4.2.zip"),
-        loadVersion("4.3", "version/4.3.zip"),
-        loadVersion("4.4", "version/4.4.zip"),
-        loadVersion("4.5", "version/4.5.zip"),
-        loadVersion("4.6", "version/4.6.zip"),
-        loadVersion("4.7", "version/4.7.zip"),
-        Version("Disabled", emptyList(), emptyList(), emptyList(), emptyList())
+    private val versionResources = listOf(
+        "3.2" to "version/3.2.zip",
+        "3.3" to "version/3.3.zip",
+        "3.4" to "version/3.4.zip",
+        "3.5" to "version/3.5.zip",
+        "4.0" to "version/4.0.zip",
+        "4.1" to "version/4.1.zip",
+        "4.2" to "version/4.2.zip",
+        "4.3" to "version/4.3.zip",
+        "4.4" to "version/4.4.zip",
+        "4.5" to "version/4.5.zip",
+        "4.6" to "version/4.6.zip",
+        "4.7" to "version/4.7.zip"
     )
+    private val versions: List<Version> = versionResources.map { (id, path) -> loadVersion(id, path) } +
+        Version("Disabled", emptyList(), emptyList(), emptyList(), emptyList())
+    private val documentationCache = ConcurrentHashMap<Pair<String, String>, ClassDocumentation>()
 
     private fun loadVersion(versionId: String, resourcePath: String): Version {
         val classes: List<Class> = readEntries(resourcePath)
@@ -53,6 +57,29 @@ class VersionService {
         return classes
     }
 
+    private fun loadDocumentation(versionId: String, className: String): ClassDocumentation? {
+        if (!className.matches(Regex("[A-Za-z0-9_@]+"))) return null
+        val path = versionResources.find { it.first == versionId }?.second ?: return null
+        val resource = javaClass.classLoader.getResourceAsStream(path) ?: return null
+        ZipInputStream(resource).use { zip ->
+            var entry = zip.nextEntry
+            while (entry != null) {
+                if (entry.name == "doc/classes/$className.xml") {
+                    val doc = Jsoup.parse(ByteArrayInputStream(zip.readBytes()), "UTF-8", "")
+                    return parseClassDocumentation(doc)
+                }
+                zip.closeEntry()
+                entry = zip.nextEntry
+            }
+        }
+        return null
+    }
+
+    private fun classDocumentation(versionId: String, className: String): ClassDocumentation? {
+        val key = versionId to className
+        return documentationCache[key] ?: loadDocumentation(versionId, className)?.also { documentationCache[key] = it }
+    }
+
     companion object {
 
         const val DEFAULT_VERSION = "4.7"
@@ -62,6 +89,11 @@ class VersionService {
             val settingsVersionId = service<ApplicationSettings>().versionId
             return versionService.find { it.versionId == settingsVersionId }
                 ?: versionService.find { it.versionId == DEFAULT_VERSION }!!
+        }
+
+        fun documentation(className: String): ClassDocumentation? {
+            val service = service<VersionService>()
+            return service.classDocumentation(current().versionId, className)
         }
 
         fun all(): List<Version> =

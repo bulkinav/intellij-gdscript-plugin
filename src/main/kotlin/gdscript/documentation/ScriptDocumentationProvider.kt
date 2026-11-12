@@ -12,17 +12,25 @@ class ScriptDocumentationProvider : AbstractDocumentationProvider() {
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
         val clazz = findClass(originalElement)
             ?: return null
+        val documentation = VersionService.documentation(clazz.name)
         return listOf(
             DEFINITION_START,
             clazz.name,
             DEFINITION_END,
             CONTENT_START,
-            "<p>${clazz.briefDescription}</p>",
+            "<div>${GodotBbCode.toHtml(documentation?.description?.ifBlank { clazz.briefDescription } ?: clazz.briefDescription)}</div>",
             "<br/>",
-            generateDocList("Properties", clazz.fields.map { it.name + if (it.default != null) " = ${it.default}" else "" }),
-            generateDocList("Methods", clazz.methods.map { it.name + "(" + joinArguments(it.arguments) + ")" + if (it.type != "void") " -> ${it.type}" else "" }),
-            generateDocList("Constants", clazz.constants.map { it.name + " = " + it.value }),
-            generateDocList("Signals", clazz.signals.map { it.name + if (it.arguments.isNotEmpty()) "(" + joinArguments(it.arguments) + ")" else "" }),
+            generateDocList("Properties", clazz.fields.map {
+                (it.name + if (it.default != null) " = ${it.default}" else "") to documentation?.fields?.get(it.name).orEmpty()
+            }),
+            generateDocList("Methods", clazz.methods.map {
+                (it.name + "(" + joinArguments(it.arguments) + ")" + if (it.type != "void") " -> ${it.type}" else "") to
+                    documentation?.methods?.get(it.name).orEmpty()
+            }),
+            generateDocList("Constants", clazz.constants.map { (it.name + " = " + it.value) to "" }),
+            generateDocList("Signals", clazz.signals.map {
+                (it.name + if (it.arguments.isNotEmpty()) "(" + joinArguments(it.arguments) + ")" else "") to ""
+            }),
             CONTENT_END
         ).joinToString("")
     }
@@ -43,10 +51,20 @@ class ScriptDocumentationProvider : AbstractDocumentationProvider() {
     private fun joinArguments(arguments: List<Argument>) =
         arguments.joinToString(", ") { arg -> arg.name + ": " + arg.type }
 
-    private fun generateDocList(title: String, list: List<String>): String =
+    private fun generateDocList(title: String, list: List<Pair<String, String>>): String =
         if (list.isEmpty())
             ""
         else
-            "<h3>$title</h3><ul>${list.joinToString("") { "<li><code>$it</code></li>" }}</ul>"
+            "<h3>$title</h3><ul>${list.joinToString("") { (signature, description) ->
+                "<li><code>${escapeHtml(signature)}</code>" +
+                    if (description.isBlank()) "</li>" else "<div>${GodotBbCode.toHtml(description)}</div></li>"
+            }}</ul>"
+
+    private fun escapeHtml(text: String) = text
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\"", "&quot;")
+        .replace("'", "&#39;")
 
 }
