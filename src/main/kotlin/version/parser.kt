@@ -22,12 +22,16 @@ private fun parseField(field: Element) = Field(
     default = field.attr("default").ifBlank { null }
 )
 
-private fun parseMethod(method: Element) = Method(
-    name = method.attr("name"),
-    type = method.select("return").attr("type"),
-    arguments = parseArguments(method),
-    vararg = method.attr("qualifiers") == "vararg"
-)
+private fun parseMethod(method: Element): Method {
+    val qualifiers = method.attr("qualifiers").split(" ")
+    return Method(
+        name = method.attr("name"),
+        type = method.select("return").attr("type"),
+        arguments = parseArguments(method),
+        vararg = "vararg" in qualifiers,
+        isStatic = "static" in qualifiers
+    )
+}
 
 private fun parseConstant(constant: Element) = Constant(
     name = constant.attr("name"),

@@ -26,9 +26,9 @@ class StaticCompletionContributor : CompletionContributor() {
         val clazz = (api.classes + api.singletons).find { it.name == name }
             ?: return emptyList()
         val constants = clazz.constants.map { LookupFactory.createConstant(it) }
-        if (clazz !in api.singletons)
-            return constants
-        val methods = clazz.methods.map { LookupFactory.createStaticMethod(it) }
+        val methods = clazz.methods
+            .filter { clazz in api.singletons || it.isStatic }
+            .map { LookupFactory.createStaticMethod(it) }
         return constants + methods
     }
 
