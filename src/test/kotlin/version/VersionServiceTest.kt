@@ -29,6 +29,30 @@ class VersionServiceTest : BaseTest() {
         assertVersion("4.1")
     }
 
+    fun `test v4_2`() {
+        assertVersion("4.2")
+    }
+
+    fun `test v4_3`() {
+        assertVersion("4.3")
+    }
+
+    fun `test v4_4`() {
+        assertVersion("4.4")
+    }
+
+    fun `test v4_5`() {
+        assertVersion("4.5")
+    }
+
+    fun `test v4_6`() {
+        assertVersion("4.6")
+    }
+
+    fun `test v4_7`() {
+        assertVersion("4.7")
+    }
+
     fun `test disabled`() {
         val disabled = VersionService.all().find { it.versionId == "Disabled" }!!
         assertEmpty(disabled.classes)
@@ -37,8 +61,15 @@ class VersionServiceTest : BaseTest() {
         assertEmpty(disabled.globals)
     }
 
-    fun `test v4_1 is default`() {
-        assertEquals(VersionService.current().versionId, "4.1")
+    fun `test v4_7 is default`() {
+        assertEquals("4.7", VersionService.current().versionId)
+    }
+
+    fun `test v4_7 includes new engine API classes`() {
+        val names = VersionService.all().find { it.versionId == "4.7" }!!.classes.map { it.name }
+        assertTrue("AreaLight3D" in names)
+        assertTrue("DrawableTexture2D" in names)
+        assertTrue("VirtualJoystick" in names)
     }
 
     private companion object {

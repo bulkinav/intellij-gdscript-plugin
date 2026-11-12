@@ -19,6 +19,12 @@ class VersionService {
         loadVersion("3.5", "version/3.5.zip"),
         loadVersion("4.0", "version/4.0.zip"),
         loadVersion("4.1", "version/4.1.zip"),
+        loadVersion("4.2", "version/4.2.zip"),
+        loadVersion("4.3", "version/4.3.zip"),
+        loadVersion("4.4", "version/4.4.zip"),
+        loadVersion("4.5", "version/4.5.zip"),
+        loadVersion("4.6", "version/4.6.zip"),
+        loadVersion("4.7", "version/4.7.zip"),
         Version("Disabled", emptyList(), emptyList(), emptyList(), emptyList())
     )
 
@@ -49,7 +55,7 @@ class VersionService {
 
     companion object {
 
-        const val DEFAULT_VERSION = "4.1"
+        const val DEFAULT_VERSION = "4.7"
 
         fun current(): Version {
             val versionService = service<VersionService>().versions

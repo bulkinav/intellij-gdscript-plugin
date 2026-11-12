@@ -8,5 +8,5 @@
 - Run all tests with `./gradlew test`; focus on one class with `./gradlew test --tests 'gdscript.parser.ScriptParserTest'`.
 - `BaseTest` supplies an explicit name to `createLightFixtureBuilder`; the current fixture API has no no-argument overload.
 - `./gradlew buildPlugin` creates the distribution under `build/distributions/`; `./gradlew runIde` launches the WebStorm sandbox.
-- API completion data is packaged under `src/main/resources/version/`. `./update-api.sh <Godot-version>...` fetches matching Godot tags via SSH and rewrites the corresponding ZIPs; it first deletes the local `.versions/` checkout directory.
+- API completion data is packaged under `src/main/resources/version/`. `./update-api.sh <Godot-tag-or-version>...` fetches XML from Godot over HTTPS and atomically replaces only the requested catalog ZIPs; it leaves `.versions/` untouched.
 - Publishing uses `./gradlew publishPlugin` and requires `publishPluginToken` in the local `gradle.properties` (that file is git-ignored; never commit the token).

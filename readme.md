@@ -4,6 +4,8 @@
 
 Works with all IntelliJ-based IDEs. List of available features is [here](src/main/resources/META-INF/plugin.xml).
 
+This fork is maintained by Alexander Bulkin and is based on [Jakub Błach's original project](https://github.com/exigow/intellij-gdscript). The original MIT license and copyright notice are preserved in [`license`](license).
+
 Requires IntelliJ Platform 2026.2 or newer; WebStorm 2026.2 and 2026.3 are covered by Plugin Verifier.
 
 ## Usage & Development
@@ -13,7 +15,7 @@ Requires IntelliJ Platform 2026.2 or newer; WebStorm 2026.2 and 2026.3 are cover
 * `./gradlew verifyPlugin` - check compatibility with WebStorm 2026.2 and 2026.3
 * `./gradlew buildPlugin` - build plugin distribution under `build/distributions/`
 * `./gradlew publishPlugin` - publish plugin to official JetBrains repository
-* `./update-api.sh 3.2 3.3 3.4 3.5 4.0 4.1` - update completion data for listed versions (requires GitHub SSH access)
+* `./update-api.sh 3.2 3.3 3.4 3.5 4.0 4.1 4.2.2-stable 4.3-stable 4.4.1-stable 4.5.2-stable 4.6.3-stable 4.7.2-stable` - refresh API catalogs from Godot tags over HTTPS
 
 The build uses Gradle 9.1 and Java 25 toolchains; Java 25 is downloaded automatically when no local toolchain is installed.
 
