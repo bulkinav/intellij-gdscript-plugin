@@ -5,7 +5,6 @@
     psiImplClassSuffix = "Impl"
     psiPackage = "gdscript.psi"
     psiImplPackage = "gdscript.psi.impl"
-    psiImplUtilClass = "gdscript.psi.impl.ScriptPsiImplUtil"
     elementTypeHolderClass = "gdscript.psi.ScriptElementTypes"
     elementTypeClass = "gdscript.psi.ScriptElementType"
     tokenTypeClass = "gdscript.psi.ScriptTokenType"
@@ -21,6 +20,7 @@
         PASS = "pass"
         RETURN = "return"
         MATCH = "match"
+        WHEN = "when"
         ASSERT = "assert"
         AWAIT = "await"
         BREAKPOINT = "breakpoint"
@@ -61,6 +61,8 @@
 
         AT_ONREADY = "@onready"
         AT_TOOL = "@tool"
+        AT_ABSTRACT = "@abstract"
+        AT_STATIC_UNLOAD = "@static_unload"
 
         AT_EXPORT = "@export"
         AT_EXPORT_ENUM = "@export_enum"
@@ -81,6 +83,13 @@
         AT_EXPORT_FLAGS_3D_RENDER = "@export_flags_3d_render"
         AT_EXPORT_FLAGS_3D_PHYSICS = "@export_flags_3d_physics"
         AT_EXPORT_FLAGS_3D_NAVIGATION = "@export_flags_3d_navigation"
+        AT_EXPORT_CATEGORY = "@export_category"
+        AT_EXPORT_GROUP = "@export_group"
+        AT_EXPORT_SUBGROUP = "@export_subgroup"
+        AT_EXPORT_TOOL_BUTTON = "@export_tool_button"
+        AT_WARNING_IGNORE = "@warning_ignore"
+        AT_WARNING_IGNORE_START = "@warning_ignore_start"
+        AT_WARNING_IGNORE_RESTORE = "@warning_ignore_restore"
 
         AT_ICON = "@icon"
         AT_MASTER = "@master"
@@ -181,8 +190,9 @@ private non_colon_statement ::= var_statement
     | BREAK
     | CONTINUE
     | BREAKPOINT
+    | annotation_statement
 
-var_statement ::= var_export? (ONREADY | AT_ONREADY)? network_modifier? VAR id (COLON type)? ((EQUAL | INFER) expression)?
+var_statement ::= (warning_annotation | group_annotation)* var_export? (ONREADY | AT_ONREADY)? network_modifier? VAR id (COLON type)? ((EQUAL | INFER) expression)?
     (SETGET var_setter? (COMMA var_getter)?)?
 var_export ::= (EXPORT | export_annotation) (L_PAREN expression? (COMMA expression)* R_PAREN)?
 var_setter ::= id
@@ -206,12 +216,23 @@ private export_annotation ::= AT_EXPORT
     | AT_EXPORT_FLAGS_3D_RENDER
     | AT_EXPORT_FLAGS_3D_PHYSICS
     | AT_EXPORT_FLAGS_3D_NAVIGATION
+    | AT_EXPORT_TOOL_BUTTON
+
+private group_annotation ::= AT_EXPORT_CATEGORY annotation_arguments
+    | AT_EXPORT_GROUP annotation_arguments
+    | AT_EXPORT_SUBGROUP annotation_arguments
+
+private warning_annotation ::= (AT_WARNING_IGNORE | AT_WARNING_IGNORE_START | AT_WARNING_IGNORE_RESTORE) annotation_arguments
+
+private annotation_arguments ::= L_PAREN expression? (COMMA expression)* R_PAREN
+
+annotation_statement ::= group_annotation | warning_annotation | AT_STATIC_UNLOAD | AT_ABSTRACT
 
 const_statement ::= CONST id (COLON type)? (EQUAL expression)
 
 extends_statement ::= EXTENDS (type | string) (DOT IDENTIFIER)*
 
-func_statement ::= STATIC? network_modifier? FUNC id L_PAREN LINE_BREAK* func_argument? LINE_BREAK* (COMMA LINE_BREAK* func_argument LINE_BREAK*)* COMMA? LINE_BREAK* R_PAREN (ARROW type)? COLON
+func_statement ::= warning_annotation* AT_ABSTRACT? STATIC? network_modifier? FUNC id L_PAREN LINE_BREAK* func_argument? LINE_BREAK* (COMMA LINE_BREAK* func_argument LINE_BREAK*)* COMMA? LINE_BREAK* R_PAREN (ARROW type)? COLON?
 func_argument ::= id (COLON type)? ((EQUAL | INFER) expression)?
 
 enum_statement ::= ENUM id? (L_BRACE LINE_BREAK* enum_entry? LINE_BREAK* (COMMA LINE_BREAK* enum_entry LINE_BREAK*)* COMMA? LINE_BREAK* R_BRACE)?
@@ -233,9 +254,9 @@ return_statement ::= RETURN expression?
 
 signal_statement ::= SIGNAL id (L_PAREN id? (COMMA id)* R_PAREN)?
 
-classname_statement ::= CLASS_NAME id (COMMA string)?
+classname_statement ::= (AT_ABSTRACT | AT_STATIC_UNLOAD)* CLASS_NAME id (EXTENDS type)? (COMMA string)?
 
-class_statement ::= CLASS id (EXTENDS type)? COLON
+class_statement ::= AT_ABSTRACT? CLASS id (EXTENDS type)? COLON
 
 while_statement ::= WHILE expression COLON
 
@@ -248,7 +269,7 @@ yield_statement ::= YIELD expression
 match_statement ::= MATCH expression COLON
 
 match_label_statement ::= match_label_argument (COMMA match_label_argument)* COLON
-match_label_argument ::= expression | UNDERSCORE
+match_label_argument ::= (expression (WHEN expression)?) | UNDERSCORE
 
 assign_statement ::= expression assign_operator expression
 private assign_operator ::= EQUAL
@@ -331,8 +352,8 @@ type ::= array_type | nested_type
 private array_type ::= id (L_BRACKET id R_BRACKET)
 private nested_type ::= id (DOT id)*
 
-id ::= IDENTIFIER | INT | FLOAT | BOOL | VOID | NODE_PATH {methods=[getReference]}
-string ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING {methods=[getReference]}
+id ::= IDENTIFIER | INT | FLOAT | BOOL | VOID | NODE_PATH
+string ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING
 private multiline_string ::= MULTILINE_SINGLE_QUOTED_STRING | MULTILINE_DOUBLE_QUOTED_STRING
 
 private network_modifier ::= MASTER
@@ -348,4 +369,3 @@ private network_modifier ::= MASTER
     | AT_MASTERSYNC
     | AT_PUPPETSYNC
     | AT_REMOTESYNC
-

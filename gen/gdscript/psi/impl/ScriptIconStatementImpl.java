@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptIconStatementImpl extends ScriptBaseElement implements ScriptIconStatement {
 
-  public ScriptIconStatementImpl(@NotNull ASTNode node) {
+  public ScriptIconStatementImpl(ASTNode node) {
     super(node);
   }
 

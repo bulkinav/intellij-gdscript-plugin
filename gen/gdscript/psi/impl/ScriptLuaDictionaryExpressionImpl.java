@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptLuaDictionaryExpressionImpl extends ScriptBaseElement implements ScriptLuaDictionaryExpression {
 
-  public ScriptLuaDictionaryExpressionImpl(@NotNull ASTNode node) {
+  public ScriptLuaDictionaryExpressionImpl(ASTNode node) {
     super(node);
   }
 

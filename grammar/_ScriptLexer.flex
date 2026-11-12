@@ -46,6 +46,7 @@ LINE_COMMENT=#[^\n]*
   "pass"                             { return PASS; }
   "return"                           { return RETURN; }
   "match"                            { return MATCH; }
+  "when"                             { return WHEN; }
   "assert"                           { return ASSERT; }
   "await"                            { return AWAIT; }
   "breakpoint"                       { return BREAKPOINT; }
@@ -85,6 +86,8 @@ LINE_COMMENT=#[^\n]*
   "remotesync"                       { return REMOTESYNC; }
   "@onready"                         { return AT_ONREADY; }
   "@tool"                            { return AT_TOOL; }
+  "@abstract"                        { return AT_ABSTRACT; }
+  "@static_unload"                   { return AT_STATIC_UNLOAD; }
   "@export"                          { return AT_EXPORT; }
   "@export_enum"                     { return AT_EXPORT_ENUM; }
   "@export_file"                     { return AT_EXPORT_FILE; }
@@ -104,6 +107,13 @@ LINE_COMMENT=#[^\n]*
   "@export_flags_3d_render"          { return AT_EXPORT_FLAGS_3D_RENDER; }
   "@export_flags_3d_physics"         { return AT_EXPORT_FLAGS_3D_PHYSICS; }
   "@export_flags_3d_navigation"      { return AT_EXPORT_FLAGS_3D_NAVIGATION; }
+  "@export_category"                 { return AT_EXPORT_CATEGORY; }
+  "@export_group"                    { return AT_EXPORT_GROUP; }
+  "@export_subgroup"                 { return AT_EXPORT_SUBGROUP; }
+  "@export_tool_button"              { return AT_EXPORT_TOOL_BUTTON; }
+  "@warning_ignore"                  { return AT_WARNING_IGNORE; }
+  "@warning_ignore_start"            { return AT_WARNING_IGNORE_START; }
+  "@warning_ignore_restore"          { return AT_WARNING_IGNORE_RESTORE; }
   "@icon"                            { return AT_ICON; }
   "@master"                          { return AT_MASTER; }
   "@puppet"                          { return AT_PUPPET; }

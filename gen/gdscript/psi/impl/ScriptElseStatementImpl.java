@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptElseStatementImpl extends ScriptBaseElement implements ScriptElseStatement {
 
-  public ScriptElseStatementImpl(@NotNull ASTNode node) {
+  public ScriptElseStatementImpl(ASTNode node) {
     super(node);
   }
 

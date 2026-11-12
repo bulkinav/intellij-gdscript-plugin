@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptKeyImpl extends ScriptBaseElement implements ScriptKey {
 
-  public ScriptKeyImpl(@NotNull ASTNode node) {
+  public ScriptKeyImpl(ASTNode node) {
     super(node);
   }
 

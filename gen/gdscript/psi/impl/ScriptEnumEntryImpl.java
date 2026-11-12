@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptEnumEntryImpl extends ScriptBaseElement implements ScriptEnumEntry {
 
-  public ScriptEnumEntryImpl(@NotNull ASTNode node) {
+  public ScriptEnumEntryImpl(ASTNode node) {
     super(node);
   }
 

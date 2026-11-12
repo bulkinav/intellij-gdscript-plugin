@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class ScriptVisitor extends PsiElementVisitor {
 
+  public void visitAnnotationStatement(@NotNull ScriptAnnotationStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitArrayArgument(@NotNull ScriptArrayArgument o) {
     visitPsiElement(o);
   }

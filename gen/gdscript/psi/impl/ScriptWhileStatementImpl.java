@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptWhileStatementImpl extends ScriptBaseElement implements ScriptWhileStatement {
 
-  public ScriptWhileStatementImpl(@NotNull ASTNode node) {
+  public ScriptWhileStatementImpl(ASTNode node) {
     super(node);
   }
 

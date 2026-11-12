@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptEnumStatementImpl extends ScriptBaseElement implements ScriptEnumStatement {
 
-  public ScriptEnumStatementImpl(@NotNull ASTNode node) {
+  public ScriptEnumStatementImpl(ASTNode node) {
     super(node);
   }
 

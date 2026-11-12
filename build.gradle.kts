@@ -5,6 +5,7 @@ plugins {
     java
     id("org.jetbrains.kotlin.jvm") version "2.3.0"
     id("org.jetbrains.intellij.platform") version "2.20.1"
+    id("org.jetbrains.intellij.platform.grammarkit") version "2.20.1"
 }
 
 repositories {
@@ -61,4 +62,18 @@ intellijPlatform {
 
 tasks.test {
     useJUnit()
+}
+
+tasks {
+    generateParser {
+        sourceFile.set(file("grammar/ScriptParser.bnf"))
+        targetRootOutputDir.set(file("gen"))
+        pathToParser.set("gdscript/parser/ScriptParser.java")
+        pathToPsiRoot.set("gdscript/psi")
+    }
+    generateLexer {
+        sourceFile.set(file("grammar/_ScriptLexer.flex"))
+        targetRootOutputDir.set(file("gen"))
+        pathToClass.set("gdscript/parser/_ScriptLexer.java")
+    }
 }

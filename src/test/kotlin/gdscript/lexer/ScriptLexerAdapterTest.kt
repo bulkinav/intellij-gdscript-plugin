@@ -12,6 +12,21 @@ class ScriptLexerAdapterTest : BaseTest() {
         assertTokenEquals("IDENTIFIER ('UPPER_CASE')", "UPPER_CASE")
     }
 
+    fun `test modern syntax tokens`() {
+        listOf(
+            "when",
+            "@abstract",
+            "@static_unload",
+            "@export_category",
+            "@export_group",
+            "@export_subgroup",
+            "@export_tool_button",
+            "@warning_ignore",
+            "@warning_ignore_start",
+            "@warning_ignore_restore"
+        ).forEach { assertTokenEquals("$it ('$it')", it) }
+    }
+
     fun `test node path`() {
         assertTokenEquals("NODE_PATH ('\$MyNode')", "\$MyNode")
         assertTokenEquals("NODE_PATH ('\$Outer/Inner')", "\$Outer/Inner")

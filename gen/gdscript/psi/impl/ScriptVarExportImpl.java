@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptVarExportImpl extends ScriptBaseElement implements ScriptVarExport {
 
-  public ScriptVarExportImpl(@NotNull ASTNode node) {
+  public ScriptVarExportImpl(ASTNode node) {
     super(node);
   }
 

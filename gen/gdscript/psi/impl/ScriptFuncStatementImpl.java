@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptFuncStatementImpl extends ScriptBaseElement implements ScriptFuncStatement {
 
-  public ScriptFuncStatementImpl(@NotNull ASTNode node) {
+  public ScriptFuncStatementImpl(ASTNode node) {
     super(node);
   }
 
@@ -25,6 +25,12 @@ public class ScriptFuncStatementImpl extends ScriptBaseElement implements Script
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof ScriptVisitor) accept((ScriptVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<ScriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ScriptExpression.class);
   }
 
   @Override

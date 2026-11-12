@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptMatchLabelArgumentImpl extends ScriptBaseElement implements ScriptMatchLabelArgument {
 
-  public ScriptMatchLabelArgumentImpl(@NotNull ASTNode node) {
+  public ScriptMatchLabelArgumentImpl(ASTNode node) {
     super(node);
   }
 
@@ -28,9 +28,9 @@ public class ScriptMatchLabelArgumentImpl extends ScriptBaseElement implements S
   }
 
   @Override
-  @Nullable
-  public ScriptExpression getExpression() {
-    return findChildByClass(ScriptExpression.class);
+  @NotNull
+  public List<ScriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ScriptExpression.class);
   }
 
 }

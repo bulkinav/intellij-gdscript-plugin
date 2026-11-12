@@ -9,6 +9,7 @@
 		<ul>
 			<li><b>Syntax highlighting</b> for GDScript and Godot scene files.</li>
 			<li><b>Code completion</b> for GDScript keywords, types, engine classes, methods, properties, and constants, using the selected Godot API version.</li>
+			<li><b>Versioned Godot API catalogs</b> covering Godot 3.2–4.7, with modern GDScript syntax support such as pattern guards and annotations.</li>
 			<li><b>Resource path completion and navigation</b> for <code>res://</code> paths, so project resources can be located and opened from references in code.</li>
 			<li><b>Documentation</b> for Godot API classes and members, based on the selected API catalog.</li>
 			<li><b>Syntax-aware code selection</b> that expands selections according to GDScript structure.</li>

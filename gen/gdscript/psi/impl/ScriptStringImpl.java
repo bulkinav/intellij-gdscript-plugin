@@ -10,11 +10,10 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static gdscript.psi.ScriptElementTypes.*;
 import gdscript.psi.ScriptBaseElement;
 import gdscript.psi.*;
-import com.intellij.psi.PsiReference;
 
 public class ScriptStringImpl extends ScriptBaseElement implements ScriptString {
 
-  public ScriptStringImpl(@NotNull ASTNode node) {
+  public ScriptStringImpl(ASTNode node) {
     super(node);
   }
 
@@ -38,12 +37,6 @@ public class ScriptStringImpl extends ScriptBaseElement implements ScriptString 
   @Nullable
   public PsiElement getSingleQuotedString() {
     return findChildByType(SINGLE_QUOTED_STRING);
-  }
-
-  @Override
-  @NotNull
-  public PsiReference getReference() {
-    return ScriptPsiImplUtil.getReference(this);
   }
 
 }

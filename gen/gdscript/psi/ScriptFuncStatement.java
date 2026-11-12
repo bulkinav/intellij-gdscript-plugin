@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface ScriptFuncStatement extends PsiElement {
 
   @NotNull
+  List<ScriptExpression> getExpressionList();
+
+  @NotNull
   List<ScriptFuncArgument> getFuncArgumentList();
 
   @NotNull

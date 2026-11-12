@@ -13,4 +13,7 @@ public interface ScriptClassnameStatement extends PsiElement {
   @Nullable
   ScriptString getString();
 
+  @Nullable
+  ScriptType getType();
+
 }

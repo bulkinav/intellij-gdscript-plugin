@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptAwaitStatementImpl extends ScriptBaseElement implements ScriptAwaitStatement {
 
-  public ScriptAwaitStatementImpl(@NotNull ASTNode node) {
+  public ScriptAwaitStatementImpl(ASTNode node) {
     super(node);
   }
 

@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptYieldStatementImpl extends ScriptBaseElement implements ScriptYieldStatement {
 
-  public ScriptYieldStatementImpl(@NotNull ASTNode node) {
+  public ScriptYieldStatementImpl(ASTNode node) {
     super(node);
   }
 

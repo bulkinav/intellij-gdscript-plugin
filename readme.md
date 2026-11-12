@@ -4,7 +4,7 @@
 
 Works with all IntelliJ-based IDEs. List of available features is [here](src/main/resources/META-INF/plugin.xml).
 
-This fork is maintained by Alexander Bulkin and is based on [Jakub Błach's original project](https://github.com/exigow/intellij-gdscript). The original MIT license and copyright notice are preserved in [`license`](license).
+This fork is based on [Jakub Błach's original project](https://github.com/exigow/intellij-gdscript). The original MIT license and copyright notice are preserved in [`license`](license).
 
 Requires IntelliJ Platform 2026.2 or newer; WebStorm 2026.2 and 2026.3 are covered by Plugin Verifier.
 
@@ -19,10 +19,10 @@ Requires IntelliJ Platform 2026.2 or newer; WebStorm 2026.2 and 2026.3 are cover
 
 The build uses Gradle 9.1 and Java 25 toolchains; Java 25 is downloaded automatically when no local toolchain is installed.
 
-### How to update grammars with Grammar-Kit plugin
+### How to update grammars
 
-* To update parser use *Generate Parser Code* option on `.bnf` file
-* To update lexer use *Run JFlex Generator* option on `.flex` file
+* For GDScript, edit `grammar/ScriptParser.bnf` or `grammar/_ScriptLexer.flex`, then run `./gradlew generateParser generateLexer`
+* Generated sources are written to `gen/`; do not edit them directly
 
 ### How to install plugin manually
 

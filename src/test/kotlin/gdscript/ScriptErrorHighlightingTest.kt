@@ -42,6 +42,28 @@ class ScriptErrorHighlightingTest : BaseTest() {
     fun `test v4 export annotation arguments`() =
         assertNoErrors("@export_range(1, 100, 1, \"or_greater\") var foo")
 
+    fun `test modern match guard`() =
+        assertNoErrors("""
+            match value:
+                1 when condition:
+                    pass
+                _:
+                    pass
+        """)
+
+    fun `test modern annotations`() {
+        assertNoErrors("@abstract class_name AbstractThing extends Node")
+        assertNoErrors("@abstract func required_method() -> void")
+        assertNoErrors("@export_category(\"Properties\")")
+        assertNoErrors("@export_group(\"Movement\")")
+        assertNoErrors("@export_subgroup(\"Ground\")")
+        assertNoErrors("@export_tool_button(\"Do it\", \"Callable\") var action: Callable")
+        assertNoErrors("@warning_ignore(\"unused_variable\") var unused = 1")
+        assertNoErrors("@warning_ignore_start(\"unused_variable\")")
+        assertNoErrors("@warning_ignore_restore(\"unused_variable\")")
+        assertNoErrors("@static_unload class_name Cache extends RefCounted")
+    }
+
     fun `test if after expression is not operator`() =
         assertNoErrors("""
             var foo = true

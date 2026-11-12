@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptLambdaExpressionImpl extends ScriptBaseElement implements ScriptLambdaExpression {
 
-  public ScriptLambdaExpressionImpl(@NotNull ASTNode node) {
+  public ScriptLambdaExpressionImpl(ASTNode node) {
     super(node);
   }
 

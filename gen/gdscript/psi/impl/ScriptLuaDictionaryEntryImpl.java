@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptLuaDictionaryEntryImpl extends ScriptBaseElement implements ScriptLuaDictionaryEntry {
 
-  public ScriptLuaDictionaryEntryImpl(@NotNull ASTNode node) {
+  public ScriptLuaDictionaryEntryImpl(ASTNode node) {
     super(node);
   }
 

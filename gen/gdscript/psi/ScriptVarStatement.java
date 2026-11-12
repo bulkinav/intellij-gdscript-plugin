@@ -7,8 +7,8 @@ import com.intellij.psi.PsiElement;
 
 public interface ScriptVarStatement extends PsiElement {
 
-  @Nullable
-  ScriptExpression getExpression();
+  @NotNull
+  List<ScriptExpression> getExpressionList();
 
   @NotNull
   ScriptId getId();

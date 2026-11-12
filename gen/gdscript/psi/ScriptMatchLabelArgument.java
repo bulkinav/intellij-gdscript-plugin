@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface ScriptMatchLabelArgument extends PsiElement {
 
-  @Nullable
-  ScriptExpression getExpression();
+  @NotNull
+  List<ScriptExpression> getExpressionList();
 
 }

@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptVarGetterImpl extends ScriptBaseElement implements ScriptVarGetter {
 
-  public ScriptVarGetterImpl(@NotNull ASTNode node) {
+  public ScriptVarGetterImpl(ASTNode node) {
     super(node);
   }
 

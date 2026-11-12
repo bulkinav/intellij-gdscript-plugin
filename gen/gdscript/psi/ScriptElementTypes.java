@@ -8,6 +8,7 @@ import gdscript.psi.impl.*;
 
 public interface ScriptElementTypes {
 
+  IElementType ANNOTATION_STATEMENT = new ScriptElementType("ANNOTATION_STATEMENT");
   IElementType ARRAY_ARGUMENT = new ScriptElementType("ARRAY_ARGUMENT");
   IElementType ARRAY_EXPRESSION = new ScriptElementType("ARRAY_EXPRESSION");
   IElementType ASSERT_STATEMENT = new ScriptElementType("ASSERT_STATEMENT");
@@ -58,7 +59,9 @@ public interface ScriptElementTypes {
   IElementType ARROW = new ScriptTokenType("->");
   IElementType AS = new ScriptTokenType("as");
   IElementType ASSERT = new ScriptTokenType("assert");
+  IElementType AT_ABSTRACT = new ScriptTokenType("@abstract");
   IElementType AT_EXPORT = new ScriptTokenType("@export");
+  IElementType AT_EXPORT_CATEGORY = new ScriptTokenType("@export_category");
   IElementType AT_EXPORT_COLOR_NO_ALPHA = new ScriptTokenType("@export_color_no_alpha");
   IElementType AT_EXPORT_DIR = new ScriptTokenType("@export_dir");
   IElementType AT_EXPORT_ENUM = new ScriptTokenType("@export_enum");
@@ -73,10 +76,13 @@ public interface ScriptElementTypes {
   IElementType AT_EXPORT_FLAGS_3D_RENDER = new ScriptTokenType("@export_flags_3d_render");
   IElementType AT_EXPORT_GLOBAL_DIR = new ScriptTokenType("@export_global_dir");
   IElementType AT_EXPORT_GLOBAL_FILE = new ScriptTokenType("@export_global_file");
+  IElementType AT_EXPORT_GROUP = new ScriptTokenType("@export_group");
   IElementType AT_EXPORT_MULTILINE = new ScriptTokenType("@export_multiline");
   IElementType AT_EXPORT_NODE_PATH = new ScriptTokenType("@export_node_path");
   IElementType AT_EXPORT_PLACEHOLDER = new ScriptTokenType("@export_placeholder");
   IElementType AT_EXPORT_RANGE = new ScriptTokenType("@export_range");
+  IElementType AT_EXPORT_SUBGROUP = new ScriptTokenType("@export_subgroup");
+  IElementType AT_EXPORT_TOOL_BUTTON = new ScriptTokenType("@export_tool_button");
   IElementType AT_ICON = new ScriptTokenType("@icon");
   IElementType AT_MASTER = new ScriptTokenType("@master");
   IElementType AT_MASTERSYNC = new ScriptTokenType("@mastersync");
@@ -85,7 +91,11 @@ public interface ScriptElementTypes {
   IElementType AT_PUPPETSYNC = new ScriptTokenType("@puppetsync");
   IElementType AT_REMOTE = new ScriptTokenType("@remote");
   IElementType AT_REMOTESYNC = new ScriptTokenType("@remotesync");
+  IElementType AT_STATIC_UNLOAD = new ScriptTokenType("@static_unload");
   IElementType AT_TOOL = new ScriptTokenType("@tool");
+  IElementType AT_WARNING_IGNORE = new ScriptTokenType("@warning_ignore");
+  IElementType AT_WARNING_IGNORE_RESTORE = new ScriptTokenType("@warning_ignore_restore");
+  IElementType AT_WARNING_IGNORE_START = new ScriptTokenType("@warning_ignore_start");
   IElementType AWAIT = new ScriptTokenType("await");
   IElementType BANG = new ScriptTokenType("!");
   IElementType BANG_EQUAL = new ScriptTokenType("!=");
@@ -181,13 +191,17 @@ public interface ScriptElementTypes {
   IElementType UNDERSCORE = new ScriptTokenType("_");
   IElementType VAR = new ScriptTokenType("var");
   IElementType VOID = new ScriptTokenType("void");
+  IElementType WHEN = new ScriptTokenType("when");
   IElementType WHILE = new ScriptTokenType("while");
   IElementType YIELD = new ScriptTokenType("yield");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ARRAY_ARGUMENT) {
+      if (type == ANNOTATION_STATEMENT) {
+        return new ScriptAnnotationStatementImpl(node);
+      }
+      else if (type == ARRAY_ARGUMENT) {
         return new ScriptArrayArgumentImpl(node);
       }
       else if (type == ARRAY_EXPRESSION) {

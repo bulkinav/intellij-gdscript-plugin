@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptVarStatementImpl extends ScriptBaseElement implements ScriptVarStatement {
 
-  public ScriptVarStatementImpl(@NotNull ASTNode node) {
+  public ScriptVarStatementImpl(ASTNode node) {
     super(node);
   }
 
@@ -28,9 +28,9 @@ public class ScriptVarStatementImpl extends ScriptBaseElement implements ScriptV
   }
 
   @Override
-  @Nullable
-  public ScriptExpression getExpression() {
-    return findChildByClass(ScriptExpression.class);
+  @NotNull
+  public List<ScriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ScriptExpression.class);
   }
 
   @Override

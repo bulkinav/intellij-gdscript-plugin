@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptMatchStatementImpl extends ScriptBaseElement implements ScriptMatchStatement {
 
-  public ScriptMatchStatementImpl(@NotNull ASTNode node) {
+  public ScriptMatchStatementImpl(ASTNode node) {
     super(node);
   }
 

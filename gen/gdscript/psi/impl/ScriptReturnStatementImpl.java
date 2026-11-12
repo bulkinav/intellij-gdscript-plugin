@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptReturnStatementImpl extends ScriptBaseElement implements ScriptReturnStatement {
 
-  public ScriptReturnStatementImpl(@NotNull ASTNode node) {
+  public ScriptReturnStatementImpl(ASTNode node) {
     super(node);
   }
 

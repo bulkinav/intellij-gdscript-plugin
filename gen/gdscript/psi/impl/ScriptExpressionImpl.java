@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptExpressionImpl extends ScriptBaseElement implements ScriptExpression {
 
-  public ScriptExpressionImpl(@NotNull ASTNode node) {
+  public ScriptExpressionImpl(ASTNode node) {
     super(node);
   }
 

@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptTypeImpl extends ScriptBaseElement implements ScriptType {
 
-  public ScriptTypeImpl(@NotNull ASTNode node) {
+  public ScriptTypeImpl(ASTNode node) {
     super(node);
   }
 

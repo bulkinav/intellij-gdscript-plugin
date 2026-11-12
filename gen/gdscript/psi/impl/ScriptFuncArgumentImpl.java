@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptFuncArgumentImpl extends ScriptBaseElement implements ScriptFuncArgument {
 
-  public ScriptFuncArgumentImpl(@NotNull ASTNode node) {
+  public ScriptFuncArgumentImpl(ASTNode node) {
     super(node);
   }
 

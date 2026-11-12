@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptSignalStatementImpl extends ScriptBaseElement implements ScriptSignalStatement {
 
-  public ScriptSignalStatementImpl(@NotNull ASTNode node) {
+  public ScriptSignalStatementImpl(ASTNode node) {
     super(node);
   }
 

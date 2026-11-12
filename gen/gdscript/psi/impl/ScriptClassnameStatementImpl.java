@@ -13,7 +13,7 @@ import gdscript.psi.*;
 
 public class ScriptClassnameStatementImpl extends ScriptBaseElement implements ScriptClassnameStatement {
 
-  public ScriptClassnameStatementImpl(@NotNull ASTNode node) {
+  public ScriptClassnameStatementImpl(ASTNode node) {
     super(node);
   }
 
@@ -37,6 +37,12 @@ public class ScriptClassnameStatementImpl extends ScriptBaseElement implements S
   @Nullable
   public ScriptString getString() {
     return findChildByClass(ScriptString.class);
+  }
+
+  @Override
+  @Nullable
+  public ScriptType getType() {
+    return findChildByClass(ScriptType.class);
   }
 
 }
