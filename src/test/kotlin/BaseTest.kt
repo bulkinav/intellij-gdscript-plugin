@@ -22,7 +22,7 @@ abstract class BaseTest : UsefulTestCase() {
             .createCodeInsightFixture(createFixture(), createTempDir())
 
         private fun createFixture() = getFixtureFactory()
-            .createLightFixtureBuilder()
+            .createLightFixtureBuilder("GDScript test")
             .fixture
 
         private fun createTempDir(): TempDirTestFixture {

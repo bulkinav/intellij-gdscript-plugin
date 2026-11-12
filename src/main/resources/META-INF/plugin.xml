@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/exigow/intellij-gdscript">
 	<id>gdscript</id>
 	<name>GDScript</name>
-	<version>0.35.0</version>
+	<version>0.35.1</version>
 	<vendor>Jakub Błach</vendor>
 	<description><![CDATA[
 		<p>Adds support for Godot Engine and GDScript language.</p>
@@ -16,7 +16,7 @@
 		</ul>
 	]]>
 	</description>
-	<idea-version since-build="211.1777"/>
+	<idea-version since-build="262"/>
 	<depends>com.intellij.modules.lang</depends>
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- gdscript -->

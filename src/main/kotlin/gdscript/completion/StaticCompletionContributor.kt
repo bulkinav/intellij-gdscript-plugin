@@ -15,7 +15,7 @@ class StaticCompletionContributor : CompletionContributor() {
     override fun fillCompletionVariants(parameters: CompletionParameters, result: CompletionResultSet) {
         val prev = PsiTreeUtil.prevVisibleLeaf(parameters.position)
         if (prev?.elementType == DOT) {
-            val beforeDot = PsiTreeUtil.prevVisibleLeaf(prev!!)
+            val beforeDot = PsiTreeUtil.prevVisibleLeaf(prev)
             val lookups = findClassLookups(beforeDot?.text)
             result.caseInsensitive().addAllElements(lookups)
         }

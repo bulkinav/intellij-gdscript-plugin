@@ -15,13 +15,11 @@ class ConstantAnnotator : Annotator {
             holder.createTextAttributesAnnotation(element, Colors.CONSTANT.key)
     }
 
-    private fun isConstant(name: String) =
-        CONSTANT_REGEX.matches(name) || isGlobalConstant(name)
-
-    private fun isGlobalConstant(name: String) =
-        VersionService.current().globals
-            .flatMap { it.constants }
-            .any { name == it.name }
+    private fun isConstant(name: String): Boolean {
+        val api = VersionService.current()
+        return name !in api.classNames &&
+            (CONSTANT_REGEX.matches(name) || name in api.globalConstantNames)
+    }
 
     private companion object {
 

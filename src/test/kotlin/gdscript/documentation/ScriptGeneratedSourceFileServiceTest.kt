@@ -1,6 +1,8 @@
 package gdscript.documentation
 
 import BaseTest
+import com.intellij.openapi.components.service
+import settings.ApplicationSettings
 import utils.assertContains
 
 class ScriptGeneratedSourceFileServiceTest : BaseTest() {
@@ -25,6 +27,19 @@ class ScriptGeneratedSourceFileServiceTest : BaseTest() {
     fun `test void methods has no explicit type`() {
         val text = getService().getSourceFile("Node3D")!!.text
         assertContains("func show():", text)
+    }
+
+    fun `test generated source changes with selected API version`() {
+        val settings = service<ApplicationSettings>()
+        val previousVersion = settings.versionId
+        try {
+            settings.versionId = "4.1"
+            assertNotNull(getService().getSourceFile("Node3D"))
+            settings.versionId = "3.5"
+            assertNull(getService().getSourceFile("Node3D"))
+        } finally {
+            settings.versionId = previousVersion
+        }
     }
 
     private fun getService() =

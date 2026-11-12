@@ -33,8 +33,7 @@ object ResourceUtil {
 
     fun findProject(resource: PsiElement): VirtualFile? {
         val scope = GlobalSearchScope.projectScope(resource.project)
-        return FilenameIndex.getFilesByName(resource.project, "project.godot", scope)
-            .map { it.virtualFile }
+        return FilenameIndex.getVirtualFilesByName("project.godot", scope)
             .firstOrNull()
     }
 

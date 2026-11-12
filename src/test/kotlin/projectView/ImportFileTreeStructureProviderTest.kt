@@ -16,6 +16,7 @@ class ImportFileTreeStructureProviderTest : BasePlatformTestCase() {
         myFixture.addFile("my_texture.png")
         myFixture.addFile("my_texture.png.import")
 
+        PlatformTestUtil.waitWhileBusy(pane.tree)
         PlatformTestUtil.expandAll(pane.tree)
 
         val expected = """
@@ -23,7 +24,7 @@ class ImportFileTreeStructureProviderTest : BasePlatformTestCase() {
              -PsiDirectory: src
               -my_texture.png
                my_texture.png.import
-             External Libraries
+             +External Libraries
         """.trimIndent()
         PlatformTestUtil.assertTreeEqual(pane.tree, expected)
     }
@@ -36,6 +37,7 @@ class ImportFileTreeStructureProviderTest : BasePlatformTestCase() {
         myFixture.addFile("my_texture.png")
         myFixture.addFile("my_texture.png.import")
 
+        PlatformTestUtil.waitWhileBusy(pane.tree)
         PlatformTestUtil.expandAll(pane.tree)
 
         val expected = """
@@ -43,7 +45,7 @@ class ImportFileTreeStructureProviderTest : BasePlatformTestCase() {
              -PsiDirectory: src
               my_texture.png
               my_texture.png.import
-             External Libraries
+             +External Libraries
         """.trimIndent()
         PlatformTestUtil.assertTreeEqual(pane.tree, expected)
     }

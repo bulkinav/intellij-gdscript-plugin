@@ -15,10 +15,6 @@ class ClassnameAnnotator : Annotator {
             holder.createTextAttributesAnnotation(element, Colors.CLASS_NAME.key)
     }
 
-    private fun isClass(name: String): Boolean {
-        val api = VersionService.current()
-        val classes = api.singletons.toList() + api.classes.toList() - api.primitives
-        return classes.any { it.name == name }
-    }
+    private fun isClass(name: String) = name in VersionService.current().classNames
 
 }

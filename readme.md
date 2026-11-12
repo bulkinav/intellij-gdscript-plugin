@@ -4,13 +4,18 @@
 
 Works with all IntelliJ-based IDEs. List of available features is [here](src/main/resources/META-INF/plugin.xml).
 
+Requires IntelliJ Platform 2026.2 or newer; WebStorm 2026.2 and 2026.3 are covered by Plugin Verifier.
+
 ## Usage & Development
 
-* `./gradlew runIde` - run sandbox with installed plugin
+* `./gradlew runIde` - run WebStorm 2026.2 sandbox with installed plugin
 * `./gradlew test` - run plugin tests
-* `./gradlew buildPlugin` - build plugin distribution to `build/distributions/intellij-gdscript.zip`
+* `./gradlew verifyPlugin` - check compatibility with WebStorm 2026.2 and 2026.3
+* `./gradlew buildPlugin` - build plugin distribution under `build/distributions/`
 * `./gradlew publishPlugin` - publish plugin to official JetBrains repository
-* `./update-api.sh 3.2 3.3 3.4 3.5 4.0 4.1` - update completion data for listed versions
+* `./update-api.sh 3.2 3.3 3.4 3.5 4.0 4.1` - update completion data for listed versions (requires GitHub SSH access)
+
+The build uses Gradle 9.1 and Java 25 toolchains; Java 25 is downloaded automatically when no local toolchain is installed.
 
 ### How to update grammars with Grammar-Kit plugin
 

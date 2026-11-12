@@ -18,7 +18,7 @@ class VersionServiceTest : BaseTest() {
     }
 
     fun `test v3_5`() {
-        assertVersion("3.4")
+        assertVersion("3.5")
     }
 
     fun `test v4_0`() {

@@ -8,6 +8,7 @@ import gdscript.ScriptFileType
 import gdscript.ScriptLanguage
 import version.VersionService
 import version.data.Class
+import version.data.Version
 import java.util.concurrent.ConcurrentHashMap
 
 @Service
@@ -15,24 +16,21 @@ class ScriptGeneratedSourceFileService(
     private val project: Project
 ) {
 
-    private val files: MutableMap<String, PsiFile> = ConcurrentHashMap()
+    private val files: MutableMap<Pair<String, String>, PsiFile> = ConcurrentHashMap()
 
     fun getSourceFile(className: String): PsiFile? {
-        if (!files.containsKey(className)) {
-            val clazz = findClass(className)
-                ?: return null
-            val file = createFile(clazz)
-            files += className to file
-            return file
+        val version = VersionService.current()
+        val key = version.versionId to className
+        files[key]?.let { return it }
+        val clazz = findClass(version, className) ?: return null
+        return files.computeIfAbsent(key) {
+            createFile(clazz)
         }
-        return files[className]
     }
 
-    private fun findClass(className: String): Class? {
-        val current = VersionService.current()
-        return (current.classes + current.singletons + current.primitives)
+    private fun findClass(version: Version, className: String): Class? =
+        (version.classes + version.singletons + version.primitives)
             .find { it.name == className }
-    }
 
     private fun createFile(clazz: Class): PsiFile {
         val factory: PsiFileFactory = PsiFileFactory.getInstance(project)
