@@ -1,8 +1,8 @@
-<idea-plugin url="https://github.com/PixelStreamApps/intellij-gdscript-plugin">
+<idea-plugin url="https://github.com/bulkinav/intellij-gdscript-plugin">
 	<id>org.plugin.pixelstream.gdscript</id>
 	<name>Godot GDScript</name>
 	<version>0.36.0</version>
-	<vendor url="https://github.com/PixelStreamApps/intellij-gdscript-plugin">Alexander Bulkin</vendor>
+	<vendor url="https://github.com/bulkinav/intellij-gdscript-plugin">Alexander Bulkin</vendor>
 	<description><![CDATA[
 		<p>Adds GDScript language support and Godot Engine integration to IntelliJ-based IDEs.</p>
 		<p>Features include:</p>

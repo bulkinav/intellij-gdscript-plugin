@@ -14,6 +14,9 @@ class ScriptErrorHighlightingTest : BaseTest() {
     fun `test v4 inline lambda`() =
         assertNoErrors("foo(func(x): bar(x))")
 
+    fun `test lambda with return`() =
+        assertNoErrors("var positive_numbers = numbers.filter(func(x): return x >= 0)")
+
     fun `test v4 typed array`() =
         assertNoErrors("var foo: Array[int]")
 

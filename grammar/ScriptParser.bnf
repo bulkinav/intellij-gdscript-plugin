@@ -345,7 +345,7 @@ lua_dictionary_entry ::= (key EQUAL expression) | DOT_DOT
 
 invocation_expression ::= id? L_PAREN LINE_BREAK* expression? LINE_BREAK* (COMMA LINE_BREAK* expression LINE_BREAK*)* R_PAREN
 
-lambda_expression ::= FUNC id? L_PAREN id? (COMMA id)* R_PAREN COLON expression
+lambda_expression ::= FUNC id? L_PAREN id? (COMMA id)* R_PAREN COLON (RETURN expression? | expression)
 
 key ::= expression
 type ::= array_type | nested_type

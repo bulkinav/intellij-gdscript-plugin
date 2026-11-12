@@ -1477,7 +1477,7 @@ public class ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FUNC id? L_PAREN id? (COMMA id)* R_PAREN COLON expression
+  // FUNC id? L_PAREN id? (COMMA id)* R_PAREN COLON (RETURN expression? | expression)
   public static boolean lambda_expression(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "lambda_expression")) return false;
     if (!nextTokenIs(builder_, FUNC)) return false;
@@ -1489,7 +1489,7 @@ public class ScriptParser implements PsiParser, LightPsiParser {
     result_ = result_ && lambda_expression_3(builder_, level_ + 1);
     result_ = result_ && lambda_expression_4(builder_, level_ + 1);
     result_ = result_ && consumeTokens(builder_, 0, R_PAREN, COLON);
-    result_ = result_ && expression(builder_, level_ + 1);
+    result_ = result_ && lambda_expression_7(builder_, level_ + 1);
     exit_section_(builder_, marker_, LAMBDA_EXPRESSION, result_);
     return result_;
   }
@@ -1528,6 +1528,35 @@ public class ScriptParser implements PsiParser, LightPsiParser {
     result_ = result_ && id(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
+  }
+
+  // RETURN expression? | expression
+  private static boolean lambda_expression_7(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "lambda_expression_7")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = lambda_expression_7_0(builder_, level_ + 1);
+    if (!result_) result_ = expression(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // RETURN expression?
+  private static boolean lambda_expression_7_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "lambda_expression_7_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, RETURN);
+    result_ = result_ && lambda_expression_7_0_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // expression?
+  private static boolean lambda_expression_7_0_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "lambda_expression_7_0_1")) return false;
+    expression(builder_, level_ + 1);
+    return true;
   }
 
   /* ********************************************************** */

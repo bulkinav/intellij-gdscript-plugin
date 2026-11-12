@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface ScriptLambdaExpression extends PsiElement {
 
-  @NotNull
+  @Nullable
   ScriptExpression getExpression();
 
   @NotNull

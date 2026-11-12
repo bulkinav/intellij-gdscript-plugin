@@ -28,9 +28,9 @@ public class ScriptLambdaExpressionImpl extends ScriptBaseElement implements Scr
   }
 
   @Override
-  @NotNull
+  @Nullable
   public ScriptExpression getExpression() {
-    return findNotNullChildByClass(ScriptExpression.class);
+    return findChildByClass(ScriptExpression.class);
   }
 
   @Override
